@@ -22,9 +22,9 @@ app.get("/",function(request,response){
         }
     )})
 
-app.post("/api/encurtar",async(request,response)=>{
+app.post("/api/encurtar",async(request,response) => {
         let idunico = Math.random().toString(36).replace(/[^a-z0-9]/gi,'').substr(2,10);
-        let sql = `INSERT INTO links(urllongo,urlcurto) VALUES('${request.body.urllongo}','www.samu.el/${idunico}')`;
+        let sql = `INSERT INTO links(urllongo,urlcurto) VALUES('${request.body.urllongo}','${idunico}')`;
         con.query(sql, async (error, result) => {
             if (error) {
                 response.status(500).json({
@@ -40,7 +40,7 @@ app.post("/api/encurtar",async(request,response)=>{
         })
     });
 
-app.get("/api/buscatotal",async(request,response) =>{
+app.get("/api/buscatotal",async(request,response) => {
         let sql = `SELECT * FROM links`;
         con.query(sql,async(error,result) => {
             if(error){
@@ -54,7 +54,22 @@ app.get("/api/buscatotal",async(request,response) =>{
         })
     });
   
-
+app.get("/:urlencurtado",async (request,response) => {
+        let urlencurtado = request.params.urlencurtado;
+        let sql = `SELECT * FROM links WHERE urlcurto='${urlencurtado}' LIMIT 1`;
+        con.query(sql,async(error,result) => {
+            if(error){
+                response.status(500).json({
+                    status:"Erro",
+                    message:"Algo deu Errado"
+                });
+            } else {
+                        response.status(200).json(result);
+                    }
+                })
+            
+        }
+    ,);
 
 
 
