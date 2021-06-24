@@ -11,7 +11,7 @@ app.use(express.json());
 
 con.connect(function(error){
 	if(error){
-		console.log("Database connection failed");
+		console.log("Erro na conexão do banco de dados");
 	}
 })
 
@@ -40,8 +40,20 @@ app.post("/api/encurtar",async(request,response)=>{
         })
     });
 
-    
-    
+app.get("/api/buscatotal",async(request,response) =>{
+        let sql = `SELECT * FROM links`;
+        con.query(sql,async(error,result) => {
+            if(error){
+                response.status(500).json({
+                    status:"Erro",
+                    message:"Algo deu Errado"
+                });
+            } else {
+                response.status(200).json(result);
+            }
+        })
+    });
+  
 
 
 
