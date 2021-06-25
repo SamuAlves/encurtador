@@ -88,5 +88,21 @@ app.get("/data/:consultadata",async(request,response) =>{
         }
     ,);
 
+app.get("/id/:consultaid",async(request,response) =>{
+        let consultaid = parseInt(request.params.consultaid);
+        let sql = `SELECT * FROM links WHERE ID=${consultaid}`;
+        con.query(sql,async(error,result) =>{
+            if(error){
+                response.status(500).json({
+                    status:"Erro",
+                    message:"Algo Deu Errado"
+                });
+            } else {
+                        response.status(200).json(result);
+                    }
+                })
+            
+        }
+    ,);
 
 app.listen(5000);
