@@ -71,7 +71,22 @@ app.get("/:urlencurtado",async (request,response) => {
         }
     ,);
 
-
+app.get("/data/:consultadata",async(request,response) =>{
+        let consultadata = parseInt(request.params.consultadata);
+        let sql = `SELECT * FROM links WHERE data=${consultadata}`;
+        con.query(sql,async(error,result) =>{
+            if(error){
+                response.status(500).json({
+                    status:"Erro",
+                    message:"Algo Deu Errado"
+                });
+            } else {
+                        response.status(200).json(result);
+                    }
+                })
+            
+        }
+    ,);
 
 
 app.listen(5000);
