@@ -1,0 +1,9 @@
+/*Tabelas banco */
+
+CREATE TABLE `links` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `urllongo` varchar(255) NOT NULL,
+  `urlcurto` varchar(255) NOT NULL,
+  `data` date NOT NULL DEFAULT current_timestamp,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 
